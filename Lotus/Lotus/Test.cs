@@ -11,7 +11,7 @@ namespace Lotus
     {
         public override void Update()
         {
-            transform.rotation += 50 * Time.DeltaTime;
+            transform.rotation += 20 * Time.DeltaTime;
         }
     }
 }
