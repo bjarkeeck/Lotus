@@ -37,11 +37,11 @@
             this.openGLControl.BitDepth = 24;
             this.openGLControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.openGLControl.DrawFPS = true;
-            this.openGLControl.FrameRate = 20;
+            this.openGLControl.FrameRate = 200;
             this.openGLControl.Location = new System.Drawing.Point(0, 0);
             this.openGLControl.Name = "openGLControl";
-            this.openGLControl.RenderContextType = SharpGL.RenderContextType.FBO;
-            this.openGLControl.Size = new System.Drawing.Size(624, 391);
+            this.openGLControl.RenderContextType = SharpGL.RenderContextType.NativeWindow;
+            this.openGLControl.Size = new System.Drawing.Size(851, 621);
             this.openGLControl.TabIndex = 0;
             this.openGLControl.OpenGLInitialized += new System.EventHandler(this.openGLControl_OpenGLInitialized);
             this.openGLControl.OpenGLDraw += new System.Windows.Forms.PaintEventHandler(this.openGLControl_OpenGLDraw);
@@ -51,7 +51,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(624, 391);
+            this.ClientSize = new System.Drawing.Size(851, 621);
             this.Controls.Add(this.openGLControl);
             this.Name = "SharpGLForm";
             this.Text = "SharpGL Form";
