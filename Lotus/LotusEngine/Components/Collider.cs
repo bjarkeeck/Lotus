@@ -79,7 +79,6 @@ namespace LotusEngine
                 else if (collider is PolygonCollider && LineIntersectsPolygon(collider as PolygonCollider, a, b))
                     return true;
             }
-
             return false;
         }
 

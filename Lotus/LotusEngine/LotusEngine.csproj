@@ -31,13 +31,13 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="SharpGL">
-      <HintPath>..\Lotus\bin\Debug\SharpGL.dll</HintPath>
+      <HintPath>..\Lotus\Dependencies\SharpGL.dll</HintPath>
     </Reference>
     <Reference Include="SharpGL.SceneGraph">
-      <HintPath>..\Lotus\bin\Debug\SharpGL.SceneGraph.dll</HintPath>
+      <HintPath>..\Lotus\Dependencies\SharpGL.SceneGraph.dll</HintPath>
     </Reference>
     <Reference Include="SharpGL.WinForms">
-      <HintPath>..\Lotus\bin\Debug\SharpGL.WinForms.dll</HintPath>
+      <HintPath>..\Lotus\Dependencies\SharpGL.WinForms.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

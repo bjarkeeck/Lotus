@@ -10,11 +10,11 @@ namespace LotusEngine
     {
         public static class Assets
         {
-            public static string PrefabPath = "prefabs";
-            public static string TexturePath = "textures";
-            public static string SpritePath = "sprites";
-            public static string SoundPath = "sounds";
-            public static string ScenePath = "scenes";
+            public static string PrefabPath = "Assets/Prefabs";
+            public static string TexturePath = "Assets/Textures";
+            public static string SpritePath = "Assets/Sprites";
+            public static string SoundPath = "Assets/Sounds";
+            public static string ScenePath = "Assets/Scenes";
         }
 
         public static class Screen
