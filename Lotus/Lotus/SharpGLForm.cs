@@ -58,6 +58,7 @@ namespace Lotus
 
             test.AddComponent<Renderer>();
             test.AddComponent<Test>();
+
             var poly = test.AddComponent<PolygonCollider>();
 
             poly.points = new Vector2[] {

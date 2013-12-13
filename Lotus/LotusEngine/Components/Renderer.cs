@@ -8,6 +8,9 @@ using System.Drawing;
 
 namespace LotusEngine
 {
+    /// <summary>
+    /// kaoishdiauhsdiauhdsiauhsdisasdasd as dasd
+    /// </summary>
     public class Renderer : Component
     {
         public override void Draw()
