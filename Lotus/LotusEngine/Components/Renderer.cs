@@ -12,10 +12,10 @@ namespace LotusEngine
     {
         public override void Draw()
         {
-            Rendering.StartDrawing(this);
+            Rendering.StartDrawing(this,false);
 
-            Rendering.DrawTexture(-400, -400, 800, 800, Textures.GetTexture("fancy"), 1);
-            Rendering.DrawTexture(-200, -200, 400, 400, Textures.GetTexture("test"), 1);
+            Rendering.DrawTexture(0, 0, 800, 800, Textures.GetTexture("fancy"), 1);
+            Rendering.DrawTexture(0, 0, 400, 400, Textures.GetTexture("fancy"), 1);
         }
     }
 }
