@@ -28,7 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.openGLControl = new SharpGL.OpenGLControl();
+            this.timerGameLoop = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.openGLControl)).BeginInit();
             this.SuspendLayout();
             // 
@@ -45,7 +47,11 @@
             this.openGLControl.TabIndex = 0;
             this.openGLControl.OpenGLInitialized += new System.EventHandler(this.openGLControl_OpenGLInitialized);
             this.openGLControl.OpenGLDraw += new System.Windows.Forms.PaintEventHandler(this.openGLControl_OpenGLDraw);
-            this.openGLControl.Resized += new System.EventHandler(this.openGLControl_Resized);
+            // 
+            // timerGameLoop
+            // 
+            this.timerGameLoop.Interval = 1;
+            this.timerGameLoop.Tick += new System.EventHandler(this.timerGameLoop_Tick);
             // 
             // SharpGLForm
             // 
@@ -63,6 +69,7 @@
         #endregion
 
         private SharpGL.OpenGLControl openGLControl;
+        private System.Windows.Forms.Timer timerGameLoop;
     }
 }
 
