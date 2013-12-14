@@ -103,6 +103,15 @@ namespace LotusEngine
             return new Vector2(v1.x_field - v2.x_field, v1.y_field - v2.y_field);
         }
 
+        public static bool operator ==(Vector2 v1, Vector2 v2)
+        {
+            return v1.x == v2.x && v1.y == v2.y;
+        }
+        public static bool operator !=(Vector2 v1, Vector2 v2)
+        {
+            return v1.x != v2.x || v1.y != v2.y;
+        }
+
         public static Vector2 operator *(Vector2 v1, float a)
         {
             return new Vector2(v1.x_field * a, v1.y_field * a);
@@ -134,7 +143,7 @@ namespace LotusEngine
         /// </summary>
         public static float Angle(Vector2 v1, Vector2 v2)
         {
-            return FloatRad2Deg((float)Math.Acos(Dot(v1, v2) / v1.magnitude * v2.magnitude));
+            return FloatRad2Deg((float)Math.Atan2(v2.y - v1.y, v2.x - v1.x));
         }
 
         /// <summary>
@@ -146,6 +155,11 @@ namespace LotusEngine
                 return vector.normalized * maxLength;
             else
                 return vector;
+        }
+
+        public static Vector2 DirectionVector(float degree)
+        {
+            return new Vector2((float)Math.Cos(FloatDeg2Rad(degree)), (float)Math.Sin(FloatDeg2Rad(degree)));
         }
 
         /// <summary>

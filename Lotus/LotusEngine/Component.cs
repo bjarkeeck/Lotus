@@ -22,14 +22,17 @@ namespace LotusEngine
         /// The name of the GameObject which this Component belongs to.
         /// </summary>
         public string name { get { return gameObject.name; } set { gameObject.name = value; } }
+
         /// <summary>
         /// The Renderer of the GameObject which this Component belongs to.
         /// </summary>
         public Renderer renderer { get { return gameObject.renderer; } }
+
         /// <summary>
         /// The Transform of the GameObject which this Component belongs to.
         /// </summary>
         public Transform transform { get { return gameObject.transform; } }
+
         /// <summary>
         /// The Collider of the GameObject which this Component belongs to.
         /// </summary>

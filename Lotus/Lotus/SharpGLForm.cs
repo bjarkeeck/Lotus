@@ -9,17 +9,21 @@ using System.Windows.Forms;
 using SharpGL;
 using System.Drawing.Imaging;
 using LotusEngine;
+using LotusEngine.Components;
 
 namespace Lotus
 {
     /// <summary>
     /// The main form class.
     /// </summary>
+    /// 
+
     public partial class SharpGLForm : Form
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="SharpGLForm"/> class.
         /// </summary>
+        /// 
         public SharpGLForm()
         {
             InitializeComponent();
@@ -27,6 +31,9 @@ namespace Lotus
             WindowState = FormWindowState.Normal;
             FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             WindowState = FormWindowState.Maximized;
+
+            //this.Location = new Point(-1 * this.Width + 99999, -1 * this.Height);
+
         }
 
         /// <summary>
@@ -58,6 +65,7 @@ namespace Lotus
 
             test.AddComponent<Renderer>();
             test.AddComponent<Test>();
+            test.AddComponent<ParticleEmitter>();
 
             var poly = test.AddComponent<PolygonCollider>();
 

@@ -13,12 +13,21 @@ namespace LotusEngine
     /// </summary>
     public class Renderer : Component
     {
+        public override void Start()
+        {
+            this.transform.rotation = 0;
+        }
+
+
+        public override void Update()
+        {
+            this.transform.rotation += 20f * Time.DeltaTime;
+        }
+
         public override void Draw()
         {
-            Rendering.StartDrawing(this,false);
-
-            Rendering.DrawTexture(0, 0, 800, 800, Textures.GetTexture("fancy"), 1);
-            Rendering.DrawTexture(0, 0, 400, 400, Textures.GetTexture("fancy"), 1);
+            //Rendering.StartDrawing(this);
+            //Rendering.DrawTexture(Textures.GetTexture("tempParticle"), Vector2.one, Color.White, 1f);
         }
     }
 }

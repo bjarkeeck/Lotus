@@ -30,6 +30,7 @@ namespace LotusEngine
 
         public static void StartDrawing(Component component, bool rotate = true)
         {
+
             View view = Scene.ActiveScene.renderingView;
 
             float left = component.transform.position.x - view.worldX,
@@ -49,7 +50,21 @@ namespace LotusEngine
         }
 
 
-        public static void DrawTexture(float x, float y, float width, float height, Texture texture, float alpha, bool additiveBlending = false)
+
+        /// <summary>
+        /// Draw's a texture, ( Remember to call Rendering.StartRendering(this) )
+        /// </summary>
+        /// <param name="texture">The texture, ( use Textures.GetTexture("texture name") )</param>
+        /// <param name="position">The texture position relative to GameObject.Transform.Position</param>
+        /// <param name="size">Specify the width & height of the texture, set x or y to zero, to maintain aspect ratio.</param>
+        /// <param name="sourceRect">A rectangle that specifies wich part of the texture should be renderd. Use null, to draw the entire texture</param>
+        /// <param name="color">The tint color of wich the wich the texture will be rendered with.</param>
+        /// <param name="scale">Scale factor. 1 = 100%</param>
+        /// <param name="rotation">Specifies the angle (in degrees) relatives to GameObject.Transform.Rotation </param>
+        /// <param name="rotationOrigin">Specifies the position relative to the texture, of wich the it will be rotated around.</param>
+        /// <param name="textureFlip">Flip the image, Vertical or horisontal</param>
+        /// <param name="additiveBlending">Enable additive blend-mode</param>
+        public static void DrawTexture(Texture texture, Vector2 position, Vector2 size, Rectangle? sourceRect, Color color, float scale, float rotation, Vector2 rotationOrigin, TextureFlip textureFlip = TextureFlip.None, bool additiveBlending = false)
         {
             // Configure to texture drawing
             gl.Enable(OpenGL.GL_BLEND);
@@ -61,29 +76,152 @@ namespace LotusEngine
             // Bind the texture
             gl.BindTexture(OpenGL.GL_TEXTURE_2D, texture.OpenGLName);
 
-            // Set drawing alpha
-            if (alpha < 0) alpha = 0;
-            else if (alpha > 1) alpha = 1;
+            // Set drawing color
+            gl.Color((float)color.R / 255f, (float)color.G / 255f, (float)color.B / 255f, (float)color.A / 255f);
 
-            gl.Color(alpha, alpha, alpha, alpha);
+            // Set size
+            if (size.x == 0 && size.y > 0)
+                size.x = texture.Bitmap.Width / (float)texture.Bitmap.Height * size.y;
+            else if (size.y == 0 && size.x > 0)
+                size.y = texture.Bitmap.Height / (float)texture.Bitmap.Width * size.x;
+            else if (size.y == 0 && size.x == 0)
+                size = new Vector2(texture.Bitmap.Width, texture.Bitmap.Height);
+
+            // set rotation
+            if (rotation != 0)
+            {
+                //Set origin first, then rotate
+                gl.Translate(position.x + rotationOrigin.x, position.y + rotationOrigin.y, 0);
+                gl.Rotate(0, 0, rotation);
+                //Reset back to original position.
+                gl.Translate(position.x - rotationOrigin.x, position.y - rotationOrigin.y, 0);
+            }
+
+            // sourceRect
+            sourceRect = sourceRect ?? new Rectangle(0, 0, (int)size.x, (int)size.y);
+
+            // Scale
+            View view = Scene.ActiveScene.renderingView;
+            gl.Scale(
+                (view.width / Settings.Screen.Width) * (Settings.Screen.Width / view.worldWidth) * scale,
+                (view.height / Settings.Screen.Height) * (Settings.Screen.Height / view.worldHeight) * scale, 1
+            );
+
+            //Sørger for at positionere forbliver bliver ens, elvom elementerne bliver scaleret...
+            position /= scale;
 
             // Draw
             gl.Begin(OpenGL.GL_QUADS);
 
-            gl.TexCoord(0f, 0f); gl.Vertex(x, y);
-            gl.TexCoord(1f, 0f); gl.Vertex(x + width, y);
-            gl.TexCoord(1f, 1f); gl.Vertex(x + width, y + height);
-            gl.TexCoord(0f, 1f); gl.Vertex(x, y + height);
+            // Left Top
+            gl.TexCoord(sourceRect.Value.X / size.x, sourceRect.Value.Y / size.y);
+            gl.Vertex(position.x + (textureFlip == TextureFlip.FlipHorizontally ? size.x : 0), position.y + (textureFlip == TextureFlip.FlipVertical ? size.y : 0));
+
+            // Right Top
+            gl.TexCoord(sourceRect.Value.Width / size.x, sourceRect.Value.Y / size.y);
+            gl.Vertex(position.x + (textureFlip == TextureFlip.FlipHorizontally ? 0 : size.x), position.y + (textureFlip == TextureFlip.FlipVertical ? size.y : 0));
+
+            // Botom Left
+            gl.TexCoord(sourceRect.Value.Width / size.x, sourceRect.Value.Height / size.y);
+            gl.Vertex(position.x + (textureFlip == TextureFlip.FlipHorizontally ? 0 : size.x), position.y + (textureFlip == TextureFlip.FlipVertical ? 0 : size.y));
+
+            // Bottom Right
+            gl.TexCoord(sourceRect.Value.X / size.x, sourceRect.Value.Height / size.y);
+            gl.Vertex(position.x + (textureFlip == TextureFlip.FlipHorizontally ? size.x : 0), position.y + (textureFlip == TextureFlip.FlipVertical ? 0 : size.y));
 
             gl.End();
 
             // Reset drawing alpha
             gl.Color(1f, 1f, 1f, 1f);
 
+            // Reset scale
+            gl.Scale(1f / scale, 1f / scale, 1f);
+
+            // Reset rotation
+            if (rotation != 0)
+            {
+                gl.Translate(position.x + rotationOrigin.x, position.y + rotationOrigin.y, 0);
+                gl.Rotate(0, 0, -rotation);
+                gl.Translate(position.x - rotationOrigin.x, position.y - rotationOrigin.y, 0);
+            }
+
             // Disable texture drawing
             gl.Disable(OpenGL.GL_TEXTURE_2D);
             gl.Disable(OpenGL.GL_BLEND);
+
         }
+        /// <summary>
+        /// Draw's a texture, ( Remember to call Rendering.StartRendering(this) )
+        /// </summary>
+        /// <param name="texture">The texture, ( use Textures.GetTexture("texture name") )</param>
+        /// <param name="position">The texture position relative to GameObject.Transform.Position</param>
+        /// <param name="color">The tint color of wich the wich the texture will be rendered with.</param>
+        /// <param name="size">Specify the width & height of the texture, set x or y to zero, to maintain aspect ratio.</param>
+        /// <param name="rotation">Specifies the angle (in degrees) relatives to GameObject.Transform.Rotation </param>
+        /// <param name="rotationOrigin">Specifies the position relative to the texture, of wich the it will be rotated around.</param>
+        /// <param name="textureFlip">Flip the image, Vertical or horisontal</param>
+        /// <param name="additiveBlending">Enable additive blend-mode</param>
+        public static void DrawTexture(Texture texture, Vector2 position, Color color, Vector2 size, float rotation, Vector2 rotationOrigin, TextureFlip textureFlip = TextureFlip.None, bool additiveBlending = false)
+        {
+            DrawTexture(texture, position, size, null, color, 1, rotation, rotationOrigin, textureFlip, additiveBlending);
+        }
+        /// <summary>
+        /// Draw's a texture, ( Remember to call Rendering.StartRendering(this) )
+        /// </summary>
+        /// <param name="texture">The texture, ( use Textures.GetTexture("texture name") )</param>
+        /// <param name="position">The texture position relative to GameObject.Transform.Position</param>
+        /// <param name="color">The tint color of wich the wich the texture will be rendered with.</param>
+        /// <param name="scale">Scale factor. 1 = 100%</param>
+        /// <param name="rotation">Specifies the angle (in degrees) relatives to GameObject.Transform.Rotation </param>
+        /// <param name="rotationOrigin">Specifies the position relative to the texture, of wich the it will be rotated around.</param>
+        /// <param name="textureFlip">Flip the image, Vertical or horisontal</param>
+        /// <param name="additiveBlending">Enable additive blend-mode</param>
+        public static void DrawTexture(Texture texture, Vector2 position, Color color, float scale, float rotation, Vector2 rotationOrigin, TextureFlip textureFlip = TextureFlip.None, bool additiveBlending = false)
+        {
+            DrawTexture(texture, position, Vector2.zero, null, color, scale, rotation, rotationOrigin, textureFlip, additiveBlending);
+        }
+        /// <summary>
+        /// Draw's a texture, ( Remember to call Rendering.StartRendering(this) )
+        /// </summary>
+        /// <param name="texture">The texture, ( use Textures.GetTexture("texture name") )</param>
+        /// <param name="position">The texture position relative to GameObject.Transform.Position</param>
+        /// <param name="color">The tint color of wich the wich the texture will be rendered with.</param>
+        /// <param name="rotation">Specifies the angle (in degrees) relatives to GameObject.Transform.Rotation </param>
+        /// <param name="rotationOrigin">Specifies the position relative to the texture, of wich the it will be rotated around.</param>
+        /// <param name="textureFlip">Flip the image, Vertical or horisontal</param>
+        /// <param name="additiveBlending">Enable additive blend-mode</param>
+        public static void DrawTexture(Texture texture, Vector2 position, Color color, float rotation, Vector2 rotationOrigin, TextureFlip textureFlip = TextureFlip.None, bool additiveBlending = false)
+        {
+            DrawTexture(texture, position, Vector2.zero, null, color, 1, rotation, rotationOrigin, textureFlip, additiveBlending);
+        }
+        /// <summary>
+        /// Draw's a texture, ( Remember to call Rendering.StartRendering(this) )
+        /// </summary>
+        /// <param name="texture">The texture, ( use Textures.GetTexture("texture name") )</param>
+        /// <param name="position">The texture position relative to GameObject.Transform.Position</param>
+        /// <param name="color">The tint color of wich the wich the texture will be rendered with.</param>
+        /// <param name="size">Specify the width & height of the texture, set x or y to zero, to maintain aspect ratio.</param>
+        /// <param name="scale">Scale factor. 1 = 100%</param>
+        /// <param name="textureFlip">Flip the image, Vertical or horisontal</param>
+        /// <param name="additiveBlending">Enable additive blend-mode</param>
+        public static void DrawTexture(Texture texture, Vector2 position, Color color, Vector2 size, float scale = 1, TextureFlip textureFlip = TextureFlip.None, bool additiveBlending = false)
+        {
+            DrawTexture(texture, position, size, null, color, scale, 0, Vector2.zero, textureFlip, additiveBlending);
+        }
+        /// <summary>
+        /// Draw's a texture, ( Remember to call Rendering.StartRendering(this) )
+        /// </summary>
+        /// <param name="texture">The texture, ( use Textures.GetTexture("texture name") )</param>
+        /// <param name="position">The texture position relative to the GameObject.Transform.Position of the </param>
+        /// <param name="color">The tint color of wich the wich the texture will be rendered with.</param>
+        /// <param name="scale">Scale factor. 1 = 100%</param>
+        /// <param name="textureFlip">Flip the image, Vertical or horisontal</param>
+        /// <param name="additiveBlending">Enable additive blend-mode</param>
+        public static void DrawTexture(Texture texture, Vector2 position, Color color, float scale = 1, TextureFlip textureFlip = TextureFlip.None, bool additiveBlending = false)
+        {
+            DrawTexture(texture, position, Vector2.zero, null, color, scale, 0, Vector2.zero, textureFlip, additiveBlending);
+        }
+
 
         public static void FillRectangle(float x, float y, float width, float height, Color color, bool additiveBlending = false)
         {

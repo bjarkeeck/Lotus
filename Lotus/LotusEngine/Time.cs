@@ -48,6 +48,13 @@ namespace LotusEngine
         /// The exact time since last frame was executed.
         /// </summary>
         public static double AbsoluteDeltaTime { get { return Stopwatch.Elapsed.TotalSeconds; } }
+
+
+        /// <summary>
+        /// The exact time in millissecconds since last frame was executed.
+        /// </summary>
+        public static float DeltaTimeMilliseconds { get; private set; }
+
         /// <summary>
         /// The current FPS.
         /// </summary>
@@ -60,6 +67,7 @@ namespace LotusEngine
         {
             RealDeltaTime = (float)Stopwatch.Elapsed.TotalSeconds;
             DeltaTime = RealDeltaTime * TimeSpeed;
+            DeltaTimeMilliseconds = DeltaTime * 1000;
             CurrentFPS = (int)Math.Round((double)(1F / DeltaTime), 0, MidpointRounding.AwayFromZero);
             Stopwatch.Restart();
         }

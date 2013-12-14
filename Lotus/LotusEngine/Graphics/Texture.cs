@@ -18,6 +18,14 @@ namespace LotusEngine
             this.Bitmap = Bitmap;
         }
 
+        public Vector2 Origin
+        {
+            get
+            {
+                return new Vector2(Bitmap.Height / 2, Bitmap.Height / 2f);
+            }
+        }
+
         public readonly uint OpenGLName;
         public readonly string Name;
         public readonly Bitmap Bitmap;

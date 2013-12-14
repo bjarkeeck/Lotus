@@ -31,6 +31,20 @@ namespace LotusEngine
         /// <summary>
         /// The rotation of the Transform, defined in 360 degrees.
         /// </summary>
-        public float rotation { get; set; }
+        /// 
+
+
+        private float _rotation;
+        public float rotation
+        {
+            get
+            {
+                return _rotation;
+            }
+            set
+            {
+                _rotation = value;
+            }
+        }
     }
 }

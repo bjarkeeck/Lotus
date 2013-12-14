@@ -121,7 +121,7 @@ namespace LotusEngine
                 if (Settings.Editor.EditorIsRunning)
                     RefreshVariables();
                 
-                Rendering.StartDrawing(this, false);
+                Rendering.StartDrawing(this);
                 
                 for (int i = 0; i < localPoints_field.Length; i++)
                     Rendering.DrawLine(localPoints_field[i], localPoints_field[(i + 1) % localPoints_field.Length], 2, collisionsLastFrame.Count == 0 ? Color.Yellow : Color.Red);
