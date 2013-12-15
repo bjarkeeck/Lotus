@@ -47,6 +47,10 @@ namespace LotusEngine
             gl.Translate(left, top, 0);
             if (rotate)
                 gl.Rotate(0, 0, component.transform.rotation);
+
+
+
+            
         }
 
 
