@@ -120,11 +120,16 @@ namespace LotusEngine
             {
                 if (Settings.Editor.EditorIsRunning)
                     RefreshVariables();
-                
-                Rendering.StartDrawing(this);
-                
+
+                Rendering.StartDrawing();
+
                 for (int i = 0; i < localPoints_field.Length; i++)
-                    Rendering.DrawLine(localPoints_field[i], localPoints_field[(i + 1) % localPoints_field.Length], 2, collisionsLastFrame.Count == 0 ? Color.Yellow : Color.Red);
+                    Rendering.DrawLine(worldPoints_field[i], worldPoints_field[(i + 1) % worldPoints_field.Length], 2, collisionsLastFrame.Count == 0 ? Color.Yellow : Color.Red);
+
+                //Rendering.StartDrawing(this);
+
+                //for (int i = 0; i < localPoints_field.Length; i++)
+                //    Rendering.DrawLine(localPoints_field[i], localPoints_field[(i + 1) % localPoints_field.Length], 2, collisionsLastFrame.Count == 0 ? Color.Yellow : Color.Red);
             }
         }
 
@@ -154,8 +159,8 @@ namespace LotusEngine
             {
                 float dx = points[i].x,
                       dy = points[i].y,
-                      newX = cos * dx - sin * dy,
-                      newY = sin * -dx - cos * dy;
+                      newX = cos * dx - sin * dy + width * 0.5f,
+                      newY = sin * -dx - cos * dy + height * 0.5f;
 
                 localPoints_field[i] = new Vector2(newX, newY);
                 worldPoints_field[i] = new Vector2(newX + x, newY + y);

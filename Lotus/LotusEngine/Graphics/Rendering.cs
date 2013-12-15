@@ -28,9 +28,31 @@ namespace LotusEngine
             gl.Disable(OpenGL.GL_TEXTURE_2D);
         }
 
+        /// <summary>
+        /// Transforms the draw matrix to the current view.
+        /// </summary>
+        public static void StartDrawing()
+        {
+            View view = Scene.ActiveScene.renderingView;
+
+            float xScale = (view.width / Settings.Screen.Width) * (Settings.Screen.Width / view.worldWidth),
+                  yScale = (view.height / Settings.Screen.Height) * (Settings.Screen.Height / view.worldHeight);
+
+            OpenGL gl = Rendering.gl;
+
+            gl.LoadIdentity();
+            gl.Ortho(0, Settings.Screen.Width, Settings.Screen.Height, 0, 0, 1);
+            gl.Translate(view.screenX, view.screenY, 0);
+            gl.Scale(xScale, yScale, 1);
+        }
+
+        /// <summary>
+        /// Transforms the draw matrix to the current view and the gameobject of the given component.
+        /// </summary>
+        /// <param name="component">The component to transform to.</param>
+        /// <param name="rotate">Whether to rotate to the component's rotation.</param>
         public static void StartDrawing(Component component, bool rotate = true)
         {
-
             View view = Scene.ActiveScene.renderingView;
 
             float left = component.transform.position.x - view.worldX,

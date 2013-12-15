@@ -76,9 +76,9 @@ namespace Lotus
             };
 
             poly.drawCollider = true;
-            poly.useColliderRotation = true;
+            poly.useColliderRotation = false;
 
-            test = GameObject.Instantiate("test", new Vector2(Settings.Screen.Width / 2 - 300, Settings.Screen.Height / 2 - 300), 45);
+            test = GameObject.Instantiate("test", new Vector2(Settings.Screen.Width / 2 - 200, Settings.Screen.Height / 2 - 200), 45);
 
             var circle = test.AddComponent<CircleCollider>();
 
