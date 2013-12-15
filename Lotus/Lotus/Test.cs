@@ -17,9 +17,9 @@ namespace Lotus
 
         public override void Draw()
         {
-            Rendering.DrawLine(Vector2.zero, new Vector2(Settings.Screen.Width / 2, Settings.Screen.Height / 2), 2, Color.Red);
+            Rendering.DrawLine(Vector2.zero, Input.MousePosition, 2, Color.Red);//new Vector2(Settings.Screen.Width / 2, Settings.Screen.Height / 2), 2, Color.Red);
 
-            var intersects = Collider.LineIntersects(Vector2.zero, new Vector2(Settings.Screen.Width / 2, Settings.Screen.Height / 2));
+            var intersects = Collider.LineIntersects(Vector2.zero, Input.MousePosition);//new Vector2(Settings.Screen.Width / 2, Settings.Screen.Height / 2));
 
             foreach (var intersect in intersects)
                 Rendering.DrawCircle(intersect, 5, 2, Color.Red);
