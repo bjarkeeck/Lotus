@@ -10,7 +10,7 @@ namespace LotusEngine
     /// <summary>
     /// An arbitrarily shaped polygon collider.
     /// </summary>
-    public class PolygonCollider : Collider
+    public abstract class PolygonCollider : Collider
     {
         /// <summary>
         /// Create a new PolygonCollider instance.
@@ -125,10 +125,13 @@ namespace LotusEngine
                 if (Settings.Editor.EditorIsRunning)
                     RefreshVariables();
 
-                Rendering.StartDrawing();
+                Rendering.StartDrawing(this, !useColliderRotation);
 
-                for (int i = 0; i < localPoints_field.Length; i++)
-                    Rendering.DrawLine(worldPoints_field[i], worldPoints_field[(i + 1) % worldPoints_field.Length], 2, collisionsLastFrame.Count == 0 ? Color.Yellow : Color.Red);
+                if (useColliderRotation)
+                    Rendering.gl.Rotate(0, 0, rotation);
+
+                for (int i = 0; i < points.Length; i++)
+                    Rendering.DrawLine(points[i], points[(i + 1) % points.Length], 2, collisionsLastFrame.Count == 0 ? Color.Yellow : Color.Red);
 
                 //Rendering.StartDrawing(this);
 
