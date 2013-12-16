@@ -15,10 +15,5 @@ namespace LotusEngine.Components
             //this.renderer.OnlyInEditMode = true;
         }
 
-        public void CheckCollision(RectangleCollider rectangleCollider, ref Vector2 Velocity)
-        {
-
-        }
-
     }
 }

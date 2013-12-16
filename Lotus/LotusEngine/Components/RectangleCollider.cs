@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace LotusEngine.Components
 {
-    class RectangleCollider : PolygonCollider
+    public class RectangleCollider : PolygonCollider
     {
+        public bool Collide;
+
         [Serialize]
         private float width;
         public float Width
