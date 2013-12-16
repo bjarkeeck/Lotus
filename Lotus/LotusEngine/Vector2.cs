@@ -37,7 +37,7 @@ namespace LotusEngine
         /// </summary>
         public float magnitude
         {
-            get { return (float)Math.Sqrt(sqrMagnitude); }
+            get { return Mathf.Sqrt(sqrMagnitude); }
         }
 
         /// <summary>
@@ -154,7 +154,7 @@ namespace LotusEngine
         /// </summary>
         public static float Angle(Vector2 v1, Vector2 v2)
         {
-            return FloatRad2Deg((float)Math.Atan2(v2.y - v1.y, v2.x - v1.x));
+            return FloatRad2Deg(Mathf.Atan2(v2.y - v1.y, v2.x - v1.x));
         }
 
         /// <summary>
@@ -170,7 +170,7 @@ namespace LotusEngine
 
         public static Vector2 DirectionVector(float degree)
         {
-            return new Vector2((float)Math.Cos(FloatDeg2Rad(degree)), (float)Math.Sin(FloatDeg2Rad(degree)));
+            return new Vector2(Mathf.Cos(FloatDeg2Rad(degree)), Mathf.Sin(FloatDeg2Rad(degree)));
         }
 
         /// <summary>
@@ -288,7 +288,7 @@ namespace LotusEngine
         /// </summary>
         public static float FloatRad2Deg(float radian)
         {
-            return (float)(radian * 180 / Math.PI);
+            return (radian * 180 / Mathf.PI);
         }
 
         /// <summary>
@@ -296,7 +296,7 @@ namespace LotusEngine
         /// </summary>
         public static float FloatDeg2Rad(float degrees)
         {
-            return (float)(degrees * Math.PI / 180);
+            return (degrees * Mathf.PI / 180);
         }
 
         /// <summary>

@@ -37,8 +37,8 @@ namespace LotusEngine
         {
             get
             {
-                float sin = (float)Math.Sin((double)Vector2.FloatDeg2Rad(-transform.rotation));
-                float cos = (float)Math.Cos((double)Vector2.FloatDeg2Rad(-transform.rotation));
+                float sin = Mathf.Sin(Vector2.FloatDeg2Rad(-transform.rotation));
+                float cos = Mathf.Cos(Vector2.FloatDeg2Rad(-transform.rotation));
 
                 float dx = offset.x,
                       dy = offset.y,

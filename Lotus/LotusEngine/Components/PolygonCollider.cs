@@ -152,8 +152,8 @@ namespace LotusEngine
             worldPoints_field = new Vector2[points.Length];
             localPoints_field = new Vector2[points.Length];
             
-            float sin = (float)Math.Sin((double)Vector2.FloatDeg2Rad(rot));
-            float cos = (float)Math.Cos((double)Vector2.FloatDeg2Rad(rot));
+            float sin = Mathf.Sin(Vector2.FloatDeg2Rad(rot));
+            float cos = Mathf.Cos(Vector2.FloatDeg2Rad(rot));
 
             for (int i = 0; i < points.Length; i++)
             {

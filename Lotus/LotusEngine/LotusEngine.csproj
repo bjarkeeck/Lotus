@@ -68,6 +68,7 @@
     <Compile Include="Attributes\HideInInspector.cs" />
     <Compile Include="Input.cs" />
     <Compile Include="Enums\LineStipling.cs" />
+    <Compile Include="Mathf.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Graphics\Rendering.cs" />
     <Compile Include="Range.cs" />
