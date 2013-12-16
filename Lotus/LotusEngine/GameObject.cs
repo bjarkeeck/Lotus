@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Drawing;
 using System.Reflection;
 using SharpGL;
+using System.Xml.Linq;
 
 namespace LotusEngine
 {
@@ -96,6 +97,10 @@ namespace LotusEngine
         }
 
         /// <summary>
+        /// Whether this GameObject is a Prefab.
+        /// </summary>
+        public bool isPrefab { get; private set; }
+        /// <summary>
         /// Whether this GameObject was created from a Prefab.
         /// </summary>
         public bool fromPrefab { get; private set; }
@@ -181,10 +186,10 @@ namespace LotusEngine
         /// </summary>
         /// <param name="prefab">The Prefab which contains the data to instantiate the GameObject from.</param>
         /// <returns>The instantiated GameObject.</returns>
-        //public static GameObject Instantiate(Prefab prefab)
-        //{
-        //    return Instantiate(prefab, Vector2.zero);
-        //}
+        public static GameObject Instantiate(Prefab prefab)
+        {
+            return Instantiate(prefab, Vector2.zero);
+        }
 
         /// <summary>
         /// Instantiates a new GameObject from the given Prefab at the given position with scale (1,1) and rotation 0.
@@ -192,104 +197,109 @@ namespace LotusEngine
         /// <param name="prefab">The Prefab which contains the data to instantiate the GameObject from.</param>
         /// <param name="position">The position of the GameObject to be instantiated.</param>
         /// <returns>The instantiated GameObject.</returns>
-        //public static GameObject Instantiate(Prefab prefab, Vector2 position)
-        //{
-        //    GameObject go = new GameObject();
+        public static GameObject Instantiate(Prefab prefab, Vector2 position)
+        {
+            return Instantiate(prefab, position, 0);
+        }
 
-        //    go.fromPrefab = true;
-        //    go.prefabName = prefab.name;
-        //    go.name = prefab.name;
-        //    go.transform.position = position;
-        //    go.zIndex = prefab.zIndex;
-        //    go.homeScene = Scene.AddObject(go);
+        public static GameObject Instantiate(Prefab prefab, Vector2 position, float rotation)
+        {
+            GameObject go = new GameObject();
 
-        //    foreach (var prefabComponent in prefab.components)
-        //    {
-        //        //try
-        //        //{
-        //        if (prefabComponent.type == typeof(Transform))
-        //        {
-        //            go.transform.scale = (Vector2)prefabComponent.fieldValues.Find(n => n.name == "<scale>k__BackingField").value;
-        //            go.transform.rotation = (float)prefabComponent.fieldValues.Find(n => n.name == "<rotation>k__BackingField").value;
-        //        }
-        //        else
-        //        {
-        //            Component component = go.AddComponent(prefabComponent.type);
+            go.fromPrefab = true;
+            go.prefabName = prefab.name;
+            go.name = prefab.name;
+            go.transform.position = position;
+            go.transform.rotation = rotation;
+            go.zIndex = prefab.zIndex;
+            go.homeScene = Scene.AddObject(go);
 
-        //            foreach (var fieldValue in prefabComponent.fieldValues)
-        //            {
-        //                FieldInfo field = prefabComponent.type.GetField(fieldValue.name, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
-        //                if (field != null)
-        //                    field.SetValue(component, fieldValue.value);
-        //            }
-        //        }
-        //        //}
-        //        //catch { }
-        //    }
+            foreach (var prefabComponent in prefab.components)
+            {
+                //try
+                //{
+                if (prefabComponent.type == typeof(Transform))
+                {
+                    go.transform.scale = (Vector2)prefabComponent.fieldValues.Find(n => n.name == "_scale").value;
+                }
+                else
+                {
+                    Component component = go.AddComponent(prefabComponent.type);
 
-        //    go.Start();
+                    foreach (var fieldValue in prefabComponent.fieldValues)
+                    {
+                        FieldInfo field = prefabComponent.type.GetField(fieldValue.name, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
+                        if (field != null)
+                            field.SetValue(component, fieldValue.value);
+                    }
+                }
+                //}
+                //catch { }
+            }
 
-        //    return go;
-        //}
+            go.Start();
+
+            return go;
+        }
 
         /// <summary>
         /// Instantiates a new GameObject from the given SceneGameObjectData at position (0,0) with scale (1,1) and rotation 0.
         /// </summary>
         /// <param name="objectData">The SceneGameObjectData which contains the data to instantiate the GameObject from.</param>
         /// <returns>The instantiated GameObject.</returns>
-        //internal static GameObject Instantiate(SceneData.SceneGameObjectData objectData)
-        //{
-        //    GameObject go = new GameObject();
-        //    var transform = objectData.components.Find(n => n.type == typeof(Transform));
+        internal static GameObject Instantiate(SceneData.SceneGameObjectData objectData)
+        {
+            GameObject go = new GameObject();
+            var transform = objectData.components.Find(n => n.type == typeof(Transform));
 
-        //    if (objectData.isPrefab)
-        //    {
-        //        //Prefab prefab = Prefab.GetPrefab(objectData.prefabName);
+            if (objectData.isPrefab)
+            {
+                //Prefab prefab = Prefab.GetPrefab(objectData.prefabName);
 
-        //        //if (prefab == null)
-        //        //{
-        //        //    Debug.LogError("Tried to load prefab '{0}' but it did not exist!");
-        //        //    return null;
-        //        //}
+                //if (prefab == null)
+                //{
+                //    Debug.LogError("Tried to load prefab '{0}' but it did not exist!");
+                //    return null;
+                //}
 
-        //        //go = Instantiate(prefab);
-        //        go.fromPrefab = true;
-        //        go.prefabName = objectData.prefabName;
-        //    }
-        //    //else
-        //    //{
-        //    //    go = new GameObject();
-        //    //}
+                //go = Instantiate(prefab);
+                go.fromPrefab = true;
+                go.prefabName = objectData.prefabName;
+            }
+            //else
+            //{
+            //    go = new GameObject();
+            //}
 
-        //    go.name = objectData.name;
-        //    go.zIndex = objectData.zIndex;
-        //    go.homeScene = Scene.AddObject(go);
+            go.name = objectData.name;
+            go.zIndex = objectData.zIndex;
+            go.homeScene = Scene.AddObject(go);
 
-        //    foreach (var componentData in objectData.components)
-        //    {
-        //        //try
-        //        //{
-        //            Component component;
+            foreach (var componentData in objectData.components)
+            {
+                //try
+                //{
+                Component component;
 
-        //            if (componentData.type == typeof(Transform))
-        //                component = go.transform;
-        //            else
-        //                component = go.AddComponent(componentData.type);
+                if (componentData.type == typeof(Transform))
+                    component = go.transform;
+                else
+                    component = go.AddComponent(componentData.type);
 
-        //            foreach (var fieldData in componentData.fields)
-        //            {
-        //                FieldInfo field = componentData.type.GetField(fieldData.Key, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
-        //                if (field != null)
-        //                    field.SetValue(component, fieldData.Value);
-        //            }
-        //        //}
-        //        //catch { }
-        //    }
+                foreach (var fieldData in componentData.fields)
+                {
+                    FieldInfo field = componentData.type.GetField(fieldData.Key, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
+                    if (field != null)
+                        field.SetValue(component, fieldData.Value);
+                }
+                //}
+                //catch { }
+            }
 
-        //    go.Start();
+            go.Start();
 
-        //    return go;
-        //}
+            return go;
+        }
 
         /// <summary>
         /// Finds a GameObject with the given name.
@@ -349,6 +359,26 @@ namespace LotusEngine
                 return 1;
 
             return zIndex.CompareTo(other.zIndex);
+        }
+
+        /// <summary>
+        /// Resets the GameObject to its original prefab data.
+        /// This is done by Destroying this GameObject and instantiating a new Prefab in the same position.
+        /// </summary>
+        /// <returns>The newly instantiated Prefab if the Prefab exists, otherwise the unchanged GameObject.</returns>
+        public GameObject ResetToPrefab()
+        {
+            if (fromPrefab && Prefab.Exists(prefabName))
+            {
+                GameObject result = Instantiate(Prefab.GetPrefab(prefabName), transform.position, transform.rotation);
+                result.transform.scale = transform.scale;
+                result.name = name;
+
+                Destroy();
+                return result;
+            }
+
+            return this;
         }
 
         /// <summary>

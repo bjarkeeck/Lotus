@@ -24,10 +24,12 @@ namespace LotusEngine
         /// <summary>
         /// The radius of the CircleCollider.
         /// </summary>
+        [Serialize]
         public float radius;
         /// <summary>
         /// How much to offset the collider from the origin. Affected by rotation and scale.
         /// </summary>
+        [Serialize]
         public Vector2 offset;
 
         /// <summary>

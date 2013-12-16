@@ -29,7 +29,7 @@ namespace LotusEngine
             views_field = new List<View>();
             views_field.Add(new View(0, 0, Settings.Screen.Width, Settings.Screen.Height, 0, 0, Settings.Screen.Width, Settings.Screen.Height));
 
-            bgColor = Color.Black;
+            bgColor = Color.LightCyan;
         }
         /// <summary>
         /// Creates a Scene using the given SceneData.
@@ -39,15 +39,15 @@ namespace LotusEngine
         {
             activeScene = this;
             path = data.path;
-            name = data.name;            
+            name = data.name;
 
-            //views_field = new List<View>(data.views);
-            //bgColor = data.bgColor;
+            views_field = new List<View>(data.views);
+            bgColor = data.bgColor;
 
-            //foreach (var obj in data.sceneObjects)
-            //{
-            //    GameObject.Instantiate(obj);
-            //}
+            foreach (var obj in data.sceneObjects)
+            {
+                GameObject.Instantiate(obj);
+            }
         }
 
         private List<GameObject> sceneObjects_field = new List<GameObject>();
@@ -100,11 +100,11 @@ namespace LotusEngine
         /// </summary>
         private static SceneData sceneToLoad { get; set; }
 
-        private static List<SceneData> scenes;
+        private static List<string> scenes;
         /// <summary>
         /// A list of data on all Scenes.
         /// </summary>
-        private static List<SceneData> Scenes { get { return new List<SceneData>(scenes); } }
+        private static List<string> Scenes { get { return new List<string>(scenes); } }
 
         /// <summary>
         /// Sort scene objects according to z-index.
@@ -118,9 +118,9 @@ namespace LotusEngine
         /// Load all Scenes in a folder to the Scene cache.
         /// </summary>
         /// <param name="path">The path of the folder.</param>
-        public static void LoadAllScenes()
+        public static void LoadAllScenes(string startScene = "")
         {
-            scenes = new List<SceneData>();
+            scenes = new List<string>();
 
             if (!Directory.Exists(Settings.Assets.ScenePath))
                 Directory.CreateDirectory(Settings.Assets.ScenePath);
@@ -131,18 +131,22 @@ namespace LotusEngine
             {
                 if (file.Extension == ".scene")
                 {
-                    SceneData sceneData = new SceneData(file);
+                    //SceneData sceneData = new SceneData(file);
 
-                    if (scenes.Any(n => n.name == sceneData.name))
-                        Debug.LogError("One or more scenes with the name '{0}' have already been loaded. Skipping scene at path '{1}'.", sceneData.name, file.FullName);
-                    else
-                        scenes.Add(sceneData);
+                    //if (scenes.Any(n => n == sceneData.name))
+                    //    Debug.LogError("One or more scenes with the name '{0}' have already been loaded. Skipping scene at path '{1}'.", sceneData.name, file.FullName);
+                    //else
+                    scenes.Add(Path.GetFileNameWithoutExtension(file.Name));
                 }
             }
 
             // TODO Remove this hack!
             if (scenes.Count == 0)
                 new Scene("test");
+            else if (scenes.Contains(startScene))
+                new Scene(startScene);
+            else
+                new Scene(new SceneData(scenes[0]));
         }
 
         /// <summary>
@@ -152,7 +156,7 @@ namespace LotusEngine
         /// <returns>True if the Scene exists, otherwise false.</returns>
         public static bool Exists(string name)
         {
-            return scenes.Any(n => n.name == name);
+            return scenes.Any(n => n == name);
         }
 
         /// <summary>
@@ -167,7 +171,7 @@ namespace LotusEngine
                 return;
             }
 
-            sceneToLoad = scenes[index];
+            sceneToLoad = new SceneData(scenes[index]);
         }
         /// <summary>
         /// Tells the engine to load a Scene.
@@ -175,13 +179,13 @@ namespace LotusEngine
         /// <param name="index">The name of the Scene.</param>
         public static void LoadScene(string name)
         {
-            if (!scenes.Any(n => n.name == name))
+            if (!scenes.Any(n => n == name))
             {
                 Debug.LogError("Scene could not be loaded because the scene '{0}' does not exist!", name);
                 return;
             }
 
-            sceneToLoad = scenes.Find(n => n.name == name);
+            sceneToLoad = new SceneData(scenes.Find(n => n == name));
         }
         /// <summary>
         /// Tells the engine to load a Scene.
@@ -277,7 +281,7 @@ namespace LotusEngine
             else if (activeScene == null)
             {
                 if (scenes != null && scenes.Count > 0)
-                    InternalLoadScene(scenes[0]);
+                    InternalLoadScene(new SceneData(scenes[0]));
                 else
                     activeScene = new Scene("Empty Scene");
             }

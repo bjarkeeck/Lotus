@@ -8,6 +8,7 @@ namespace LotusEngine.Components
 {
     class RectangleCollider : PolygonCollider
     {
+        [Serialize]
         private float width;
         public float Width
         {
@@ -22,6 +23,7 @@ namespace LotusEngine.Components
                 UpdatePoints();
             }
         }
+        [Serialize]
         private float height;
         public float Height
         {
@@ -72,6 +74,12 @@ namespace LotusEngine.Components
         public override void Start()
         {
             UpdatePoints();
+        }
+
+        public override void Update()
+        {
+            if (Settings.Editor.EditorIsRunning)
+                UpdatePoints();
         }
 
         private void UpdatePoints()

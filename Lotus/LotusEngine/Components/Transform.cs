@@ -23,28 +23,22 @@ namespace LotusEngine
         /// <summary>
         /// The position of the Transform..
         /// </summary>
-        public Vector2 position { get; set; }
+        public Vector2 position { get { return _position; } set { _position = value; } }
+        [Serialize]
+        private Vector2 _position;
+
         /// <summary>
         /// The scale of the Transform.
         /// </summary>
-        public Vector2 scale { get; set; }
+        public Vector2 scale { get { return _scale; } set { _scale = value; } }
+        [Serialize]
+        private Vector2 _scale;
+
         /// <summary>
         /// The rotation of the Transform, defined in 360 degrees.
         /// </summary>
-        /// 
-
-
+        public float rotation { get { return _rotation; } set { _rotation = value; } }
+        [Serialize]
         private float _rotation;
-        public float rotation
-        {
-            get
-            {
-                return _rotation;
-            }
-            set
-            {
-                _rotation = value;
-            }
-        }
     }
 }

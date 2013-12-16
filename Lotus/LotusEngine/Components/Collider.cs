@@ -27,6 +27,7 @@ namespace LotusEngine
         /// <summary>
         /// Whether to draw this collider in the Draw phase.
         /// </summary>
+        [Serialize]
         public bool drawCollider;
         /// <summary>
         /// A list of all the colliders this collider collided with last frame.

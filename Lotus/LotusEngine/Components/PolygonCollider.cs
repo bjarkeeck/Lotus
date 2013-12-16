@@ -24,19 +24,23 @@ namespace LotusEngine
         /// <summary>
         /// The rotation of the collider.
         /// </summary>
+        [Serialize]
         public float rotation;
         /// <summary>
         /// Whether to use the collider's rotation or the GameObject's Transform's rotation.
         /// </summary>
+        [Serialize]
         public bool useColliderRotation;
         /// <summary>
         /// How much to offset the collider from the center. Affected by rotation and scale.
         /// </summary>
+        [Serialize]
         public Vector2 offset;
+
         /// <summary>
         /// The center of the collider (the average position of all points in the polygon).
         /// </summary>
-        public Vector2 center;
+        public Vector2 center { get; private set; }
 
         private Vector2[] localPoints_field;
         /// <summary>
