@@ -61,7 +61,7 @@ namespace Lotus
         {
             Core.InitializeEngine(openGLControl.OpenGL, Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
 
-            GameObject test = GameObject.Instantiate("test", new Vector2(Settings.Screen.Width / 2, Settings.Screen.Height / 2), 45);
+            GameObject test = GameObject.Instantiate("test", new Vector2(Settings.Screen.Width / 2, Settings.Screen.Height / 2), 0);
 
             test.AddComponent<Renderer>();
             test.AddComponent<Test>();
@@ -77,13 +77,15 @@ namespace Lotus
 
             poly.drawCollider = true;
             poly.useColliderRotation = false;
+            poly.offset = new Vector2(-250, -250);
 
-            test = GameObject.Instantiate("test", new Vector2(Settings.Screen.Width / 2 - 200, Settings.Screen.Height / 2 - 200), 45);
+            //test = GameObject.Instantiate("test", new Vector2(Settings.Screen.Width / 2 - 200, Settings.Screen.Height / 2 - 200), 45);
 
             var circle = test.AddComponent<CircleCollider>();
 
             circle.radius = 200;
             circle.drawCollider = true;
+            circle.offset = new Vector2(-250,-250);
 
             timerGameLoop.Start();
         }

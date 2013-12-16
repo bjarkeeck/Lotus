@@ -15,13 +15,13 @@ namespace LotusEngine
     {
         public override void Start()
         {
-            this.transform.rotation = 0;
+            //this.transform.rotation = 0;
         }
 
 
         public override void Update()
         {
-            this.transform.rotation += 20f * Time.DeltaTime;
+            //this.transform.rotation += 20f * Time.DeltaTime;
         }
 
         public override void Draw()

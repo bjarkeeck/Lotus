@@ -37,8 +37,8 @@ namespace LotusEngine
         {
             get
             {
-                float sin = (float)Math.Sin((double)Vector2.FloatDeg2Rad(-transform.rotation));
-                float cos = (float)Math.Cos((double)Vector2.FloatDeg2Rad(-transform.rotation));
+                float sin = (float)Math.Sin((double)Vector2.FloatDeg2Rad(-transform.rotation - 90));
+                float cos = (float)Math.Cos((double)Vector2.FloatDeg2Rad(-transform.rotation - 90));
 
                 float dx = offset.x,
                       dy = offset.y,
@@ -92,18 +92,6 @@ namespace LotusEngine
         {
             if (drawCollider)
             {
-                // Lol
-                View view = Scene.ActiveScene.renderingView;
-                float xScale = (view.width / Settings.Screen.Width) * (Settings.Screen.Width / view.worldWidth),
-                      yScale = (view.height / Settings.Screen.Height) * (Settings.Screen.Height / view.worldHeight);
-
-                Rendering.gl.LoadIdentity();
-                Rendering.gl.Ortho(0, Settings.Screen.Width, Settings.Screen.Height, 0, 0, 1); 
-                Rendering.gl.Translate(view.screenX, view.screenY, 0);
-                Rendering.gl.Scale(xScale, yScale, 1);
-
-                Rendering.DrawCircle(center, 5, 2, Color.Green);
-
                 Rendering.StartDrawing(this);
 
                 Rendering.DrawCircle(offset, radius, 2, collisionsLastFrame.Count == 0 ? Color.Yellow : Color.Red);
