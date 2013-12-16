@@ -190,46 +190,22 @@ namespace LotusEngine
 
         public float FindLeftMostX()
         {
-            float current = points[0].x;
-
-            foreach (var point in points)
-                if (point.x < current)
-                    current = point.x;
-
-            return current;
+            return points.Min(n => n.x);
         }
 
         public float FindRightMostX()
         {
-            float current = points[0].x;
-
-            foreach (var point in points)
-                if (point.x > current)
-                    current = point.x;
-
-            return current;
+            return points.Max(n => n.x);
         }
 
         public float FindTopMostY()
         {
-            float current = points[0].y;
-
-            foreach (var point in points)
-                if (point.y < current)
-                    current = point.y;
-
-            return current;
+            return points.Min(n => n.y);
         }
 
         public float FindBottomMostY()
         {
-            float current = points[0].y;
-
-            foreach (var point in points)
-                if (point.y > current)
-                    current = point.y;
-
-            return current;
+            return points.Max(n => n.y);
         }
     }
 }

@@ -70,11 +70,7 @@ namespace LotusEngine
             if (rotate)
                 gl.Rotate(0, 0, component.transform.rotation);
 
-
-
-            
         }
-
 
 
         /// <summary>

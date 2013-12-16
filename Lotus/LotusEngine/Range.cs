@@ -6,17 +6,33 @@ using System.Threading.Tasks;
 
 namespace LotusEngine
 {
-    public class Range<T> where T : IComparable<T>
+    public class IntRange
     {
-        public T Minimum { get; set; }
-        public T Maximum { get; set; }
+        public int Minimum { get; set; }
+        public int Maximum { get; set; }
 
-        public Range(T min, T max)
+        public IntRange(int min, int max)
         {
             this.Minimum = min;
             this.Maximum = max;
         }
-        public Range(T singleValue)
+        public IntRange(int singleValue)
+        {
+            this.Minimum = singleValue;
+            this.Maximum = singleValue;
+        }
+    }
+    public class FloatRange
+    {
+        public float Minimum { get; set; }
+        public float Maximum { get; set; }
+
+        public FloatRange(float min, float max)
+        {
+            this.Minimum = min;
+            this.Maximum = max;
+        }
+        public FloatRange(float singleValue)
         {
             this.Minimum = singleValue;
             this.Maximum = singleValue;
