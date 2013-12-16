@@ -102,10 +102,12 @@ namespace LotusEditor
 
                     view.worldX = pos.x;
                     view.worldY = pos.y;
-
-                    lblViewPosition.Text = view.worldX + ";" + view.worldY;
                 }
             }
+
+            float zoom = view.width / view.worldWidth;
+
+            lblViewPosition.Text = "View Pos: " + Math.Round((double)view.worldX, 0, MidpointRounding.AwayFromZero) + ";" + Math.Round((double)view.worldY, 0, MidpointRounding.AwayFromZero) + " - Zoom: " + Math.Round((double)zoom, 2, MidpointRounding.AwayFromZero);
 
             Core.Draw(view, cbDrawGUI.Checked);
         }
@@ -398,6 +400,27 @@ namespace LotusEditor
         private void editViewsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             new SelectView(Scene.ActiveScene).ShowDialog(this);
+        }
+
+        private void editTexturesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SelectTextures selectedTextures = new SelectTextures();
+
+            selectedTextures.Text = "Edit Textures";
+
+            selectedTextures.ShowDialog(this);
+        }
+
+        private void resetZoomToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            float width = view.worldWidth,
+                  height = view.worldHeight;
+
+            view.worldWidth = view.width;
+            view.worldHeight = view.height;
+
+            view.worldX += (width - view.width) * 0.5f;
+            view.worldY += (height - view.height) * 0.5f;
         }
         #endregion
 
@@ -889,21 +912,12 @@ namespace LotusEditor
         private void btnSceneColor_Click(object sender, EventArgs e)
         {
             ColorDialog colorDialog = new ColorDialog();
-            colorDialog.Color = btnSceneColor.BackColor; // --- wait
+            colorDialog.Color = btnSceneColor.BackColor;
             if (colorDialog.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
             {
-                btnSceneColor.BackColor = colorDialog.Color; // --- what
+                btnSceneColor.BackColor = colorDialog.Color;
                 Scene.ActiveScene.bgColor = colorDialog.Color;
             }
-        }
-
-        private void editTexturesToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            SelectTextures selectedTextures = new SelectTextures();
-
-            selectedTextures.Text = "Edit Textures";
-
-            selectedTextures.ShowDialog(this);
         }
     }
 }
