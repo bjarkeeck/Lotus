@@ -8,20 +8,29 @@ namespace LotusEngine.Components
 {
 
     /// <summary>
-    /// Vigtigt at denne component bliver kaldt til sidst.
+    /// Kræver en 
     /// </summary>
     public class PhysicsObject : Component
     {
+
+        private RectangleCollider rectangle { get { return this.gameObject.GetComponent<RectangleCollider>(); } }
+
         public Vector2 Velocity;
-
-        public override void Start()
-        {
-            base.Start();
-        }
-
+         
         public override void Update()
         {
-            transform.position += Velocity; 
+            //foreach (BitmapCollider bmp in GameObject.FindAllComponents<BitmapCollider>().Where(x => x.Collide))
+            //{
+            //    bmp.CheckCollision(gameObject.GetComponent<RectangleCollider>(), ref Velocity);
+            //}
+
+
+            foreach (RectangleCollider rect in GameObject.FindAllComponents<RectangleCollider>(x => x.Collide))
+            {
+
+            }
+
         }
+
     }
 }

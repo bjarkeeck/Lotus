@@ -8,6 +8,8 @@ namespace LotusEngine.Components
 {
     class RectangleCollider : PolygonCollider
     {
+        public bool Collide { get; set; }
+
         private float width;
         public float Width
         {

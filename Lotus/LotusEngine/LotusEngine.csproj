@@ -62,6 +62,7 @@
     <Compile Include="Components\PolygonCollider.cs" />
     <Compile Include="Components\RectangleCollider.cs" />
     <Compile Include="Components\Renderer.cs" />
+    <Compile Include="Components\BitmapCollider.cs" />
     <Compile Include="Components\Transform.cs" />
     <Compile Include="Core.cs" />
     <Compile Include="Debug.cs" />

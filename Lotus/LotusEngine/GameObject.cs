@@ -52,7 +52,7 @@ namespace LotusEngine
         /// The Transform of this GameObject.
         /// </summary>
         public Transform transform
-        { 
+        {
             get
             {
                 if (transform_field == null)
@@ -81,7 +81,7 @@ namespace LotusEngine
         /// <summary>
         /// The z-index of this GameObject. The z-index defines the draw order of objects - objects with higher z-indexes will always be drawn later.
         /// </summary>
-        public int zIndex 
+        public int zIndex
         {
             get
             {
@@ -328,6 +328,19 @@ namespace LotusEngine
             return result;
         }
 
+        /// <summary>
+        /// Find all Components in the scene of Type T or that inherits from Type T.
+        /// </summary>
+        /// <typeparam name="T">The Type of Components to find.</typeparam>
+        /// <returns>A list of all the found Components.</returns>
+        public static IEnumerable<T> FindAllComponents<T>(Func<T, bool> predicate) where T : Component
+        {
+            foreach (GameObject go in Scene.ActiveScene.sceneObjects)
+                foreach (Component component in go.GetAllComponents().Where((Func<Component, bool>)predicate))
+                    if (typeof(T).IsAssignableFrom(component.GetType()))
+                        yield return (T)component;
+        }
+
         #endregion
 
         /// <summary>
@@ -474,7 +487,7 @@ namespace LotusEngine
         /// <returns>The first found Component. Null if there is no Component of the given Type.</returns>
         public T GetComponent<T>() where T : Component
         {
-            return (T) components.FirstOrDefault(n => typeof(T).IsAssignableFrom(n.GetType()));
+            return (T)components.FirstOrDefault(n => typeof(T).IsAssignableFrom(n.GetType()));
         }
 
         /// <summary>

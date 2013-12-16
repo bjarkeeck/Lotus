@@ -20,7 +20,7 @@ namespace LotusEngine.Components
         /// <summary>
         /// Specifies the max number of particles
         /// </summary>
-        public int MaxNumberOfParitcles { get; set; }
+        public int MaxNumberOfParticles { get; set; }
 
         /// <summary>
         /// The direction of the particles to fly. (in degree)
@@ -114,7 +114,7 @@ namespace LotusEngine.Components
             this.ParticleLife = new IntRange(500, 1500);
             this.EmmisionDirection = 0;
             this.EmmisionSpreadAngle = 360;
-            this.MaxNumberOfParitcles = 6000;
+            this.MaxNumberOfParticles = 6000;
             this.ParticlesPerSeccond = 2050;
             this.AddedVelocity = Vector2.zero;
             this.Position = Vector2.zero;
@@ -160,12 +160,12 @@ namespace LotusEngine.Components
         {
             timer = Time.DeltaTimeMilliseconds;
             // AddParticles
-            if (Particles.Count() < MaxNumberOfParitcles)
+            if (Particles.Count() < MaxNumberOfParticles)
             {
                 // particles pr seccond:
                 var pps = 1000f / ParticlesPerSeccond;
 
-                while (timer > pps && Particles.Count() < MaxNumberOfParitcles)
+                while (timer > pps && Particles.Count() < MaxNumberOfParticles)
                 {
                     timer -= pps;
 
