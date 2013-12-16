@@ -112,6 +112,17 @@ namespace LotusEngine
             return v1.x != v2.x || v1.y != v2.y;
         }
 
+        public override bool Equals(object obj)
+        {
+            if (obj == null || obj is Vector2 == false)
+                return false;
+            return x == ((Vector2)obj).x && y == ((Vector2)obj).y;
+        }
+        public override int GetHashCode()
+        {
+            return (x + "-" + y).GetHashCode();
+        }
+
         public static Vector2 operator *(Vector2 v1, float a)
         {
             return new Vector2(v1.x_field * a, v1.y_field * a);

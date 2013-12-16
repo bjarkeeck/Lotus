@@ -82,8 +82,8 @@ namespace LotusEngine
 
                 gl.TexParameter(OpenGL.GL_TEXTURE_2D, OpenGL.GL_TEXTURE_MIN_FILTER, OpenGL.GL_LINEAR);
                 gl.TexParameter(OpenGL.GL_TEXTURE_2D, OpenGL.GL_TEXTURE_MAG_FILTER, OpenGL.GL_LINEAR);
-                gl.Hint(OpenGL.GL_GENERATE_MIPMAP_HINT_SGIS, OpenGL.GL_FASTEST);
-                gl.GenerateMipmapEXT(OpenGL.GL_TEXTURE_2D);
+                //gl.Hint(OpenGL.GL_GENERATE_MIPMAP_HINT_SGIS, OpenGL.GL_FASTEST);
+                //gl.GenerateMipmapEXT(OpenGL.GL_TEXTURE_2D);
 
                 textures.Add(new Texture(textureOpenGLNames[i], Path.GetFileNameWithoutExtension(textureFiles[i].Name), bitmap));
             }
