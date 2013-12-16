@@ -889,10 +889,10 @@ namespace LotusEditor
         private void btnSceneColor_Click(object sender, EventArgs e)
         {
             ColorDialog colorDialog = new ColorDialog();
-            colorDialog.Color = btnSceneColor.BackColor;
+            colorDialog.Color = btnSceneColor.BackColor; // --- wait
             if (colorDialog.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
             {
-                btnSceneColor.BackColor = colorDialog.Color;
+                btnSceneColor.BackColor = colorDialog.Color; // --- what
                 Scene.ActiveScene.bgColor = colorDialog.Color;
             }
         }

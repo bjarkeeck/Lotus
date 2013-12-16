@@ -148,7 +148,7 @@ namespace LotusEngine.Components
                         new ParticleTexture(
                             Textures.GetTexture("tempParticle"), 
                             Color.White, 
-                            Color.FromArgb(0, 255, 255, 255), 2f, 00f),
+                            Color.FromArgb(0, 255, 255, 255), 0.2f, 00f),
                 rotation: (float)r.NextDouble() * (RotationSpeed.Maximum - RotationSpeed.Minimum) + RotationSpeed.Minimum,
                 life: r.Next(ParticleLife.Minimum, ParticleLife.Maximum)
             );
@@ -205,7 +205,9 @@ namespace LotusEngine.Components
             Rendering.StartDrawing(this);
 
             foreach (Particle particle in Particles)
+            {
                 particle.Draw();
+            }
         }
     }
 }

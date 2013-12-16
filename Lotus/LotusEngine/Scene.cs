@@ -29,7 +29,7 @@ namespace LotusEngine
             views_field = new List<View>();
             views_field.Add(new View(0, 0, Settings.Screen.Width, Settings.Screen.Height, 0, 0, Settings.Screen.Width, Settings.Screen.Height));
 
-            bgColor = Color.LightCyan;
+            bgColor = Color.Black;
         }
         /// <summary>
         /// Creates a Scene using the given SceneData.

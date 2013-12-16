@@ -120,11 +120,7 @@ namespace LotusEngine
             sourceRect = sourceRect ?? new Rectangle(0, 0, (int)size.x, (int)size.y);
 
             // Scale
-            View view = Scene.ActiveScene.renderingView;
-            gl.Scale(
-                (view.width / Settings.Screen.Width) * (Settings.Screen.Width / view.worldWidth) * scale,
-                (view.height / Settings.Screen.Height) * (Settings.Screen.Height / view.worldHeight) * scale, 1
-            );
+            gl.Scale(1, 1, 1);
 
             //Sørger for at positionere forbliver bliver ens, elvom elementerne bliver scaleret...
             position /= scale;
@@ -154,7 +150,7 @@ namespace LotusEngine
             gl.Color(1f, 1f, 1f, 1f);
 
             // Reset scale
-            gl.Scale(1f / scale, 1f / scale, 1f);
+            gl.Scale(1, 1, 1f);
 
             // Reset rotation
             if (rotation != 0)
