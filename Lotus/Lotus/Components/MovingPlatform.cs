@@ -1,6 +1,10 @@
 ﻿using LotusEngine;
 
 namespace Lotus.Components {
+    /// <summary>
+    /// Component for movable platforms.
+    /// This component only takes care of the movement between two points.
+    /// </summary>
     [UniqueComponent]
     class MovingPlatform : Component {
         /// <summary>
