@@ -50,6 +50,9 @@ namespace LotusEngine
         {
             get
             {
+                if (localPoints_field == null)
+                    RefreshVariables();
+
                 return localPoints_field;
             }
         }
@@ -62,6 +65,9 @@ namespace LotusEngine
         {
             get
             {
+                if (worldPoints_field == null)
+                    RefreshVariables();
+
                 return worldPoints_field;
             }
         }
