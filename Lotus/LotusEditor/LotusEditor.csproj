@@ -37,18 +37,6 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="SharpGL, Version=2.0.0.0, Culture=neutral, PublicKeyToken=27fc851303210b27, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>Dependencies\SharpGL.dll</HintPath>
-    </Reference>
-    <Reference Include="SharpGL.SceneGraph, Version=1.0.0.0, Culture=neutral, PublicKeyToken=27fc851303210b27, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>Dependencies\SharpGL.SceneGraph.dll</HintPath>
-    </Reference>
-    <Reference Include="SharpGL.WinForms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=27fc851303210b27, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>Dependencies\SharpGL.WinForms.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -59,6 +47,15 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="SharpGL">
+      <HintPath>Dependencies\SharpGL.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpGL.SceneGraph">
+      <HintPath>Dependencies\SharpGL.SceneGraph.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpGL.WinForms">
+      <HintPath>Dependencies\SharpGL.WinForms.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EditSprite.cs">
@@ -140,11 +137,11 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LotusEngine\LotusEngine.csproj">
-      <Project>{5f1b6133-7006-450e-b5d1-c6460c48bacc}</Project>
+      <Project>{5F1B6133-7006-450E-B5D1-C6460C48BACC}</Project>
       <Name>LotusEngine</Name>
     </ProjectReference>
     <ProjectReference Include="..\Lotus\Lotus.csproj">
-      <Project>{6c2585e6-a4bc-48af-b706-a1bc02e10250}</Project>
+      <Project>{6C2585E6-A4BC-48AF-B706-A1BC02E10250}</Project>
       <Name>Lotus</Name>
       <EmbedInteropTypes>False</EmbedInteropTypes>
     </ProjectReference>
