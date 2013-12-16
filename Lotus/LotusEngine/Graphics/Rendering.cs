@@ -120,7 +120,7 @@ namespace LotusEngine
             sourceRect = sourceRect ?? new Rectangle(0, 0, (int)size.x, (int)size.y);
 
             // Scale
-            gl.Scale(1, 1, 1);
+            gl.Scale(1 * scale, 1 * scale, 1);
 
             //Sørger for at positionere forbliver bliver ens, elvom elementerne bliver scaleret...
             position /= scale;
@@ -150,7 +150,7 @@ namespace LotusEngine
             gl.Color(1f, 1f, 1f, 1f);
 
             // Reset scale
-            gl.Scale(1, 1, 1f);
+            gl.Scale(1 / scale, 1 / scale, 1f);
 
             // Reset rotation
             if (rotation != 0)
