@@ -5,7 +5,7 @@ namespace LotusEngine {
 		private static Random rand = new Random ();
 
 		public static float Range (float min, float max) {
-			return min + (rand.NextDouble () * (max - min));
+			return min + (float)(rand.NextDouble () * (max - min));
 		}
 
 		public static int Range (int min, int max) {
@@ -13,7 +13,7 @@ namespace LotusEngine {
 		}
 
 		public static float Range (float max) {
-			return (rand.NextDouble () * (max));
+			return (float)(rand.NextDouble () * (max));
 		}
 
 		public static int Range (int max) {
