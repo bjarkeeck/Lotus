@@ -80,6 +80,7 @@ namespace LotusEngine.Components
         /// The spawnPosition
         /// </summary>
         public Vector2 SpawnStartPostion;
+
         /// <summary>
         /// Particles are spawned randomly between SpawnStartPostion and SpawnEndPostion to form a line.
         /// </summary>
@@ -141,7 +142,12 @@ namespace LotusEngine.Components
                 position: new Vector2(position.x, position.y),
                 velocity: Vector2.DirectionVector((float)randomAngle) * randomSpeed + AddedVelocity,
                 gravity: Gravity / 40,
-                particleTexture: ParticleTextures.Count() != 0 ? ParticleTextures[r.Next(0, ParticleTextures.Count())] : new ParticleTexture(Textures.GetTexture("tempParticle"), Color.White, Color.FromArgb(0, 255, 255, 255), 0.15f, 00f),
+                particleTexture: ParticleTextures.Count() != 0 ? 
+                        ParticleTextures[r.Next(0, ParticleTextures.Count())] : 
+                        new ParticleTexture(
+                            Textures.GetTexture("tempParticle"), 
+                            Color.White, 
+                            Color.FromArgb(0, 255, 255, 255), 0.2f, 00f),
                 rotation: (float)r.NextDouble() * (RotationSpeed.Maximum - RotationSpeed.Minimum) + RotationSpeed.Minimum,
                 life: r.Next(ParticleLife.Minimum, ParticleLife.Maximum)
             );
