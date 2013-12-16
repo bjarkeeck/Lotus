@@ -13,6 +13,7 @@ namespace LotusEngine.Components
     public class ParticleEmitter : Component
     {
         #region Fields & Props
+
         private double timer = 0;
         private Random r = new Random();
 
@@ -44,17 +45,17 @@ namespace LotusEngine.Components
         /// <summary>
         /// Particle speed
         /// </summary>
-        public Range<float> ParticleSpeed { get; set; }
+        public FloatRange ParticleSpeed { get; set; }
 
         /// <summary>
         /// Particle rotation speed
         /// </summary>
-        public Range<float> RotationSpeed { get; set; }
+        public FloatRange RotationSpeed { get; set; }
 
         /// <summary>
         /// Particle life (1000 life = 1 seccond)
         /// </summary>
-        public Range<int> ParticleLife { get; set; }
+        public IntRange ParticleLife { get; set; }
 
         /// <summary>
         /// Velocity of new particles to come.
@@ -80,6 +81,7 @@ namespace LotusEngine.Components
         /// The spawnPosition
         /// </summary>
         public Vector2 SpawnStartPostion;
+
         /// <summary>
         /// Particles are spawned randomly between SpawnStartPostion and SpawnEndPostion to form a line.
         /// </summary>
@@ -101,22 +103,22 @@ namespace LotusEngine.Components
             }
         }
 
-
         #endregion
 
 
         public ParticleEmitter()
         {
             this.ParticleTextures = new List<ParticleTexture>();
-            this.ParticleSpeed = new Range<float>(0, 50);
-            this.RotationSpeed = new Range<float>(0, 0);
-            this.ParticleLife = new Range<int>(500, 1500);
+            this.ParticleSpeed = new FloatRange(0, 50);
+            this.RotationSpeed = new FloatRange(0, 0);
+            this.ParticleLife = new IntRange(500, 1500);
             this.EmmisionDirection = 0;
             this.EmmisionSpreadAngle = 360;
             this.MaxNumberOfParitcles = 6000;
-            this.ParticlesPerSeccond = 1980;
+            this.ParticlesPerSeccond = 2050;
             this.AddedVelocity = Vector2.zero;
             this.Position = Vector2.zero;
+            this.SpawnEndPostion = Vector2.right * 200;
             this.SpawnRadius = 300;
             this.AddedVelocity = Vector2.down * -1;
             this.Gravity = Vector2.zero;
@@ -141,7 +143,12 @@ namespace LotusEngine.Components
                 position: new Vector2(position.x, position.y),
                 velocity: Vector2.DirectionVector((float)randomAngle) * randomSpeed + AddedVelocity,
                 gravity: Gravity / 40,
-                particleTexture: ParticleTextures.Count() != 0 ? ParticleTextures[r.Next(0, ParticleTextures.Count())] : new ParticleTexture(Textures.GetTexture("tempParticle"), Color.White, Color.FromArgb(0, 255, 255, 255), 0.15f, 00f),
+                particleTexture: ParticleTextures.Count() != 0 ? 
+                        ParticleTextures[r.Next(0, ParticleTextures.Count())] : 
+                        new ParticleTexture(
+                            Textures.GetTexture("tempParticle"), 
+                            Color.White, 
+                            Color.FromArgb(0, 255, 255, 255), 2f, 00f),
                 rotation: (float)r.NextDouble() * (RotationSpeed.Maximum - RotationSpeed.Minimum) + RotationSpeed.Minimum,
                 life: r.Next(ParticleLife.Minimum, ParticleLife.Maximum)
             );

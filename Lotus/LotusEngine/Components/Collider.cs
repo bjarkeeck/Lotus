@@ -273,10 +273,10 @@ namespace LotusEngine
             else
             {
                 // Two solutions
-                t = (-B + (float)Math.Sqrt((double)det)) / (2 * A);
+                t = (-B + Mathf.Sqrt(det)) / (2 * A);
                 if (0 <= t && t <= 1)
                     intersects.Add(new Vector2(a.x + t * dx, a.y + t * dy));
-                t = (-B - (float)Math.Sqrt((double)det)) / (2 * A);
+                t = (-B - Mathf.Sqrt(det)) / (2 * A);
                 if (0 <= t && t <= 1)
                     intersects.Add(new Vector2(a.x + t * dx, a.y + t * dy));
             }

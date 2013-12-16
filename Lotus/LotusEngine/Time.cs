@@ -68,7 +68,7 @@ namespace LotusEngine
             RealDeltaTime = (float)Stopwatch.Elapsed.TotalSeconds;
             DeltaTime = RealDeltaTime * TimeSpeed;
             DeltaTimeMilliseconds = DeltaTime * 1000;
-            CurrentFPS = (int)Math.Round((double)(1F / DeltaTime), 0, MidpointRounding.AwayFromZero);
+            CurrentFPS = Mathf.RoundToInt(1F / DeltaTime, 0, MidpointRounding.AwayFromZero);
             Stopwatch.Restart();
         }
     }

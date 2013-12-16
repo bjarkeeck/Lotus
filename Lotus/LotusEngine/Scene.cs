@@ -21,7 +21,7 @@ namespace LotusEngine
         {
             activeScene = this;
             this.name = name;
-            path = Settings.Assets.ScenePath + "\\" + name;
+            path = Settings.Assets.ScenePath + Path.DirectorySeparatorChar + name;
 
             if (!path.ToLower().EndsWith(".scene"))
                 path += ".scene";

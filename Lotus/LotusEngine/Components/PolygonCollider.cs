@@ -152,8 +152,8 @@ namespace LotusEngine
             worldPoints_field = new Vector2[points.Length];
             localPoints_field = new Vector2[points.Length];
             
-            float sin = (float)Math.Sin((double)Vector2.FloatDeg2Rad(rot));
-            float cos = (float)Math.Cos((double)Vector2.FloatDeg2Rad(rot));
+            float sin = Mathf.Sin(Vector2.FloatDeg2Rad(rot));
+            float cos = Mathf.Cos(Vector2.FloatDeg2Rad(rot));
 
             for (int i = 0; i < points.Length; i++)
             {
@@ -190,46 +190,22 @@ namespace LotusEngine
 
         public float FindLeftMostX()
         {
-            float current = points[0].x;
-
-            foreach (var point in points)
-                if (point.x < current)
-                    current = point.x;
-
-            return current;
+            return points.Min(n => n.x);
         }
 
         public float FindRightMostX()
         {
-            float current = points[0].x;
-
-            foreach (var point in points)
-                if (point.x > current)
-                    current = point.x;
-
-            return current;
+            return points.Max(n => n.x);
         }
 
         public float FindTopMostY()
         {
-            float current = points[0].y;
-
-            foreach (var point in points)
-                if (point.y < current)
-                    current = point.y;
-
-            return current;
+            return points.Min(n => n.y);
         }
 
         public float FindBottomMostY()
         {
-            float current = points[0].y;
-
-            foreach (var point in points)
-                if (point.y > current)
-                    current = point.y;
-
-            return current;
+            return points.Max(n => n.y);
         }
     }
 }
