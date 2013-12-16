@@ -14,58 +14,69 @@ namespace LotusEngine.Components
     {
         #region Fields & Props
 
+        [Serialize]
         private double timer = 0;
         private Random r = new Random();
 
         /// <summary>
         /// Specifies the max number of particles
         /// </summary>
-        public int MaxNumberOfParticles { get; set; }
+        [Serialize]
+        public int MaxNumberOfParticles;
 
         /// <summary>
         /// The direction of the particles to fly. (in degree)
         /// </summary>
-        public int EmmisionDirection { get; set; }
+        [Serialize]
+        public int EmmisionDirection;
 
         /// <summary>
         /// The value of wich the EmmisionDirection vary.  (in degree)
         /// </summary>
-        public int EmmisionSpreadAngle { get; set; }
+        [Serialize]
+        public int EmmisionSpreadAngle;
 
         /// <summary>
         /// The area-radius of the emission point. ( 0 = spawn from a single location )
         /// </summary>
-        public int SpawnRadius { get; set; }
+        [Serialize]
+        public int SpawnRadius;
 
         /// <summary>
         /// How many particles to emit pr seccond
         /// </summary>
-        public int ParticlesPerSeccond { get; set; }
+        [Serialize]
+        public int ParticlesPerSeccond;
 
         /// <summary>
         /// Particle speed
         /// </summary>
-        public FloatRange ParticleSpeed { get; set; }
+        [Serialize]
+        public FloatRange ParticleSpeed;
 
         /// <summary>
         /// Particle rotation speed
         /// </summary>
-        public FloatRange RotationSpeed { get; set; }
+        [Serialize]
+        public FloatRange RotationSpeed;
 
         /// <summary>
         /// Particle life (1000 life = 1 seccond)
         /// </summary>
-        public IntRange ParticleLife { get; set; }
+        [Serialize]
+        public IntRange ParticleLife;
 
         /// <summary>
         /// Velocity of new particles to come.
         /// </summary>
-        public Vector2 AddedVelocity { get; set; }
+        [Serialize]
+        public Vector2 AddedVelocity;
 
         /// <summary>
         /// Gravity
         /// </summary>
-        public Vector2 Gravity { get; set; }
+        [Serialize]
+        public Vector2 Gravity;
 
         /// <summary>
         /// List of particle textures (A random texture from the list, is selected when a particle is beeing created)
@@ -80,11 +91,13 @@ namespace LotusEngine.Components
         /// <summary>
         /// The spawnPosition
         /// </summary>
+        [Serialize]
         public Vector2 SpawnStartPostion;
 
         /// <summary>
         /// Particles are spawned randomly between SpawnStartPostion and SpawnEndPostion to form a line.
         /// </summary>
+        [Serialize]
         public Vector2 SpawnEndPostion;
 
         /// <summary>

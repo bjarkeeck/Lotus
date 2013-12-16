@@ -9,6 +9,7 @@ namespace LotusEngine.Components
 {
     public class BitmapCollider : Component
     {
+        public bool Collide;
 
         public override void Start()
         {

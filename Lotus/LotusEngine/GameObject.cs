@@ -346,9 +346,10 @@ namespace LotusEngine
         public static IEnumerable<T> FindAllComponents<T>(Func<T, bool> predicate) where T : Component
         {
             foreach (GameObject go in Scene.ActiveScene.sceneObjects)
-                foreach (Component component in go.GetAllComponents().Where((Func<Component, bool>)predicate))
+                foreach (Component component in go.GetAllComponents())
                     if (typeof(T).IsAssignableFrom(component.GetType()))
-                        yield return (T)component;
+                        if (predicate.Invoke((T)component))
+                            yield return (T)component;
         }
 
         #endregion

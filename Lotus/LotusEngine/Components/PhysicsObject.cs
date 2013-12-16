@@ -19,17 +19,10 @@ namespace LotusEngine.Components
          
         public override void Update()
         {
-            //foreach (BitmapCollider bmp in GameObject.FindAllComponents<BitmapCollider>().Where(x => x.Collide))
-            //{
-            //    bmp.CheckCollision(gameObject.GetComponent<RectangleCollider>(), ref Velocity);
-            //}
-
-
             foreach (RectangleCollider rect in GameObject.FindAllComponents<RectangleCollider>(x => x.Collide))
             {
 
             }
-
         }
 
     }

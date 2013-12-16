@@ -56,7 +56,7 @@ namespace LotusEngine.Components
         {
             //Rendering.DrawTexture(Textures.GetTexture("tempParticle"), Vector2.zero, Color.White);
             Rendering.DrawTexture(
-                Textures.GetTexture("tempParticle"),
+                ParticleTexture.Texture,
                 Position,
                 ParticleTexture.Color((int)Life, CurrentLife),
                 ParticleTexture.Scale((int)Life, CurrentLife),
