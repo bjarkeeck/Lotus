@@ -107,7 +107,8 @@ namespace LotusEditor
 
             float zoom = view.width / view.worldWidth;
 
-            lblViewPosition.Text = "View Pos: " + Math.Round((double)view.worldX, 0, MidpointRounding.AwayFromZero) + ";" + Math.Round((double)view.worldY, 0, MidpointRounding.AwayFromZero) + " - Zoom: " + Math.Round((double)zoom, 2, MidpointRounding.AwayFromZero);
+            lblViewPosition.Text = "View Pos: " + Math.Round((double)view.worldX + view.worldWidth * 0.5f, 0, MidpointRounding.AwayFromZero) + ";" + Math.Round((double)view.worldY + view.worldHeight * 0.5f, 0, MidpointRounding.AwayFromZero);
+            lblViewZoom.Text = "Zoom: " + Math.Round((double)zoom, 2, MidpointRounding.AwayFromZero);
 
             Core.Draw(view, cbDrawGUI.Checked);
         }

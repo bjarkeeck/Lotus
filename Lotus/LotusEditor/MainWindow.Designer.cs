@@ -43,6 +43,8 @@
             this.editBitmapsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editTexturesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editViewsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.resetZoomToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.timerGameLoop = new System.Windows.Forms.Timer(this.components);
             this.lbSceneObjects = new System.Windows.Forms.ListBox();
             this.lbPrefabs = new System.Windows.Forms.ListBox();
@@ -56,8 +58,7 @@
             this.btnSceneColor = new System.Windows.Forms.Button();
             this.cbDrawGUI = new System.Windows.Forms.CheckBox();
             this.lblViewPosition = new System.Windows.Forms.Label();
-            this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.resetZoomToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.lblViewZoom = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.openGLControl)).BeginInit();
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
@@ -194,6 +195,22 @@
             this.editViewsToolStripMenuItem.Text = "Edit Views";
             this.editViewsToolStripMenuItem.Click += new System.EventHandler(this.editViewsToolStripMenuItem_Click);
             // 
+            // viewToolStripMenuItem
+            // 
+            this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.resetZoomToolStripMenuItem});
+            this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
+            this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.viewToolStripMenuItem.Text = "View";
+            // 
+            // resetZoomToolStripMenuItem
+            // 
+            this.resetZoomToolStripMenuItem.Name = "resetZoomToolStripMenuItem";
+            this.resetZoomToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.Z)));
+            this.resetZoomToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.resetZoomToolStripMenuItem.Text = "Reset Zoom";
+            this.resetZoomToolStripMenuItem.Click += new System.EventHandler(this.resetZoomToolStripMenuItem_Click);
+            // 
             // timerGameLoop
             // 
             this.timerGameLoop.Interval = 1;
@@ -307,21 +324,14 @@
             this.lblViewPosition.TabIndex = 12;
             this.lblViewPosition.Text = "0;0";
             // 
-            // viewToolStripMenuItem
+            // lblViewZoom
             // 
-            this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.resetZoomToolStripMenuItem});
-            this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
-            this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
-            this.viewToolStripMenuItem.Text = "View";
-            // 
-            // resetZoomToolStripMenuItem
-            // 
-            this.resetZoomToolStripMenuItem.Name = "resetZoomToolStripMenuItem";
-            this.resetZoomToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.Z)));
-            this.resetZoomToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
-            this.resetZoomToolStripMenuItem.Text = "Reset Zoom";
-            this.resetZoomToolStripMenuItem.Click += new System.EventHandler(this.resetZoomToolStripMenuItem_Click);
+            this.lblViewZoom.AutoSize = true;
+            this.lblViewZoom.Location = new System.Drawing.Point(443, 32);
+            this.lblViewZoom.Name = "lblViewZoom";
+            this.lblViewZoom.Size = new System.Drawing.Size(22, 13);
+            this.lblViewZoom.TabIndex = 13;
+            this.lblViewZoom.Text = "0;0";
             // 
             // MainWindow
             // 
@@ -329,6 +339,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1211, 718);
+            this.Controls.Add(this.lblViewZoom);
             this.Controls.Add(this.lblViewPosition);
             this.Controls.Add(this.cbDrawGUI);
             this.Controls.Add(this.btnSceneColor);
@@ -388,6 +399,7 @@
         private System.Windows.Forms.Label lblViewPosition;
         private System.Windows.Forms.ToolStripMenuItem viewToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem resetZoomToolStripMenuItem;
+        private System.Windows.Forms.Label lblViewZoom;
     }
 }
 
