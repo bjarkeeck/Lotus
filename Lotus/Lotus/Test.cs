@@ -12,7 +12,8 @@ namespace Lotus
     {
         public override void Update()
         {
-            //transform.rotation += 20 * Time.DeltaTime;
+            transform.rotation += 20 * Time.DeltaTime;
+            transform.position += Vector2.right * Time.DeltaTime * 20;
         }
 
         public override void Draw()

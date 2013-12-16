@@ -36,12 +36,10 @@ namespace LotusEngine
             // Load and bind textures
             Rendering.InitializeGraphics(gl);
 
-            // TODO Load stuff
-
-            // Load sounds
+            // TODO Load sounds
+            Sprite.LoadAllSprites();
+            Prefab.LoadAllPrefabs();
             Scene.LoadAllScenes();
-            // Load prefabs
-            // Load sprites
 
             initialized = true;
         }
@@ -74,6 +72,9 @@ namespace LotusEngine
 
             OpenGL gl = Rendering.gl;
 
+            //  Set the clear color.
+            var color = Scene.ActiveScene.bgColor.GetRGBAFloats();
+            gl.ClearColor(color[0], color[1], color[2], color[3]);
             gl.Clear(OpenGL.GL_COLOR_BUFFER_BIT | OpenGL.GL_DEPTH_BUFFER_BIT);
             gl.MatrixMode(MatrixMode.Projection);
 
@@ -96,9 +97,10 @@ namespace LotusEngine
 
             Scene.ActiveScene.SetCurrentView(view);
 
-            gl.LoadIdentity();
-            //gl.Translate(view.screenX, view.screenY, 0);
-            //gl.Scale(view.width / Settings.Screen.Width, view.height / Settings.Screen.Height, 1);
+            //Rendering.gl.LoadIdentity();
+            //Rendering.gl.Translate(view.screenX, view.screenY, 0);
+            //Rendering.gl.Scale(view.width / Settings.Screen.Width, view.height / Settings.Screen.Height, 1);
+            //Rendering.FillRectangle(0, 0, Settings.Screen.Width, Settings.Screen.Height, Scene.ActiveScene.bgColor);
 
             foreach (var go in Scene.ActiveScene.sceneObjects)
             {

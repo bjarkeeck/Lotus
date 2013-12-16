@@ -16,14 +16,11 @@ namespace LotusEngine
         {
             Rendering.gl = gl;
 
-            //  Set the clear color.
-            gl.ClearColor(0, 0, 0, 0);
-
             gl.Enable(OpenGL.GL_TEXTURE_2D);
             gl.TexEnv(OpenGL.GL_TEXTURE_ENV, OpenGL.GL_TEXTURE_ENV_MODE, OpenGL.GL_MODULATE);
 
             // Load and bind all textures
-            Textures.LoadAllTextures(gl);
+            Textures.LoadAllTextures();
 
             gl.Disable(OpenGL.GL_TEXTURE_2D);
         }
@@ -69,9 +66,9 @@ namespace LotusEngine
             gl.Translate(left, top, 0);
             if (rotate)
                 gl.Rotate(0, 0, component.transform.rotation);
+            gl.Scale(component.transform.scale.x, component.transform.scale.y, 1);
 
         }
-
 
         /// <summary>
         /// Draw's a texture, ( Remember to call Rendering.StartRendering(this) )
@@ -231,7 +228,7 @@ namespace LotusEngine
             DrawTexture(texture, position, size, null, color, scale, 0, Vector2.zero, textureFlip, additiveBlending);
         }
         /// <summary>
-        /// Draw's a texture, ( Remember to call Rendering.StartRendering(this) )
+        /// Draw's a texture, ( Remember to call Rendering.StartDrawing(this) )
         /// </summary>
         /// <param name="texture">The texture, ( use Textures.GetTexture("texture name") )</param>
         /// <param name="position">The texture position relative to the GameObject.Transform.Position of the </param>

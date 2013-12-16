@@ -17,21 +17,30 @@ namespace LotusEngine
         /// <summary>
         /// Unloads all textures from memory and unbinds them from the given OpenGL object.
         /// </summary>
-        public static void UnloadAllTextures(OpenGL gl)
+        public static void UnloadAllTextures()
         {
-            throw new NotImplementedException();
+            if (textures != null)
+            {
+                Rendering.gl.DeleteTextures(textures.Count, textures.ConvertAll<uint>(n => n.OpenGLName).ToArray());
+
+                textures = new List<Texture>();
+            }
         }
 
         /// <summary>
         /// Loads all textures in Settings.Assets.TexturePath and subdirs into memory and binds them to the given OpenGL object.
         /// Note that it is a bad idea for two textures to have the same filename, as retrieving them from memory will not be reliable in the given case.
         /// </summary>
-        public static void LoadAllTextures(OpenGL gl)
+        public static void LoadAllTextures()
         {
+            UnloadAllTextures();
+
             if (!Directory.Exists(Settings.Assets.TexturePath))
                 Directory.CreateDirectory(Settings.Assets.TexturePath);
 
             DirectoryInfo dirInfo = new DirectoryInfo(Settings.Assets.TexturePath);
+
+            OpenGL gl = Rendering.gl;
 
             textures = new List<Texture>();
 
@@ -85,7 +94,9 @@ namespace LotusEngine
                 //gl.Hint(OpenGL.GL_GENERATE_MIPMAP_HINT_SGIS, OpenGL.GL_FASTEST);
                 //gl.GenerateMipmapEXT(OpenGL.GL_TEXTURE_2D);
 
-                textures.Add(new Texture(textureOpenGLNames[i], Path.GetFileNameWithoutExtension(textureFiles[i].Name), bitmap));
+                bitmap.UnlockBits(bitmapData);
+
+                textures.Add(new Texture(textureOpenGLNames[i], Path.GetFileNameWithoutExtension(textureFiles[i].Name), bitmap, textureFiles[i].FullName));
             }
         }
 

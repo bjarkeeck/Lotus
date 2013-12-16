@@ -11,11 +11,12 @@ namespace LotusEngine
 {
     public class Texture
     {
-        public Texture(uint OpenGLName, string Name, Bitmap Bitmap)
+        public Texture(uint OpenGLName, string Name, Bitmap Bitmap, string Path)
         {
             this.OpenGLName = OpenGLName;
             this.Name = Name;
             this.Bitmap = Bitmap;
+            this.Path = Path;
         }
 
         public Vector2 Origin
@@ -29,5 +30,11 @@ namespace LotusEngine
         public readonly uint OpenGLName;
         public readonly string Name;
         public readonly Bitmap Bitmap;
+        public readonly string Path;
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

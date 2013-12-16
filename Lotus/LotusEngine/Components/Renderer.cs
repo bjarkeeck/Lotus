@@ -9,25 +9,35 @@ using System.Drawing;
 namespace LotusEngine
 {
     /// <summary>
-    /// kaoishdiauhsdiauhdsiauhsdisasdasd as dasd
+    /// Renders a GameObject in the current Scene.
     /// </summary>
     public class Renderer : Component
     {
-        public override void Start()
-        {
-            this.transform.rotation = 0;
-        }
-
-
+        [Serialize]
+        public Sprite sprite;
+        [Serialize]
+        public Vector2 drawOffset;
+        [Serialize]
+        public bool center;
+        [Serialize]
+        public bool additiveBlending;
+        [Serialize]
+        public bool animate = true;
+        
         public override void Update()
         {
-            this.transform.rotation += 20f * Time.DeltaTime;
+            if (animate)
+                sprite.Animate();
         }
 
         public override void Draw()
         {
-            //Rendering.StartDrawing(this);
-            //Rendering.DrawTexture(Textures.GetTexture("tempParticle"), Vector2.one, Color.White, 1f);
+            if (sprite != null)
+            {
+
+                Rendering.StartDrawing(this);
+                Rendering.DrawTexture(sprite.currentTexture, center ? drawOffset - new Vector2(sprite.currentTexture.Bitmap.Width * 0.5f, sprite.currentTexture.Bitmap.Height * 0.5f) : drawOffset, Color.White, 1, TextureFlip.None, additiveBlending);
+            }
         }
     }
 }
